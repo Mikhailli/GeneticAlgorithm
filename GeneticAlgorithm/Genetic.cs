@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace GeneticAlgorithm;
 
@@ -13,7 +11,7 @@ public class Genetic
     // Размер популяции
     private readonly int _numberOfIndivids;
 
-    // Какая часть популяции должна произволить потомство
+    // Какая часть популяции должна производить потомство
     private readonly double _crossoverRate;
 
     private readonly int _mutationSteps;
@@ -27,7 +25,7 @@ public class Genetic
     private readonly int _countOfComponents;
     
     // Координаты найденного минимума
-    public List<double> CoordinatesOfMinimum = new ();
+    private List<double> _coordinatesOfMinimum = new ();
 
     // Найденный минимум
     public double Minimum;
@@ -50,7 +48,7 @@ public class Genetic
 
         for (var i = 0; i < countOfComponents; i++)
         {
-            CoordinatesOfMinimum.Add(end);
+            _coordinatesOfMinimum.Add(end);
         }
         
         Minimum = double.MaxValue;
@@ -64,27 +62,54 @@ public class Genetic
     public List<double> StartGenetic()
     {
         var population = new List<Individ>();
+        var ranks = new List<(int, int)>();
 
+        var counter = 0;
+        for (var i = 1; (int)(_numberOfIndivids * _crossoverRate) >= i; i++)
+        {
+            counter += i;
+            ranks.Add(((int)(_numberOfIndivids * _crossoverRate) - i, counter));
+        }
+        
         for (var i = 0; i < _numberOfIndivids; i++)
         {
             population.Add(new Individ(_start, _end, _mutationSteps, _countOfComponents, _calculateFunction));
         }
-
+        
         for (var i = 0; i < _numberLives; i++)
         {
+            // Сортировка популяции по убыванию пригодности
             population = population.OrderBy(individ => individ.Score).ToList();
 
+            // Отбор индивидов в промежуточную популяцию родителей
             var bestPopulation = population.Take((int)(_numberOfIndivids * _crossoverRate)).ToList();
 
+            var sum = (1 + bestPopulation.Count) / 2 * bestPopulation.Count;
+            
             foreach (var firstIndivid in bestPopulation)
             {
-                var randomIndex = Random.Next(bestPopulation.Count);
-                var secondIndivid = bestPopulation[randomIndex];
+                var secondIndivid = bestPopulation.First();
+                var randomIndex = Random.Next(1, sum);
+                foreach (var (position, rank) in ranks)
+                {
+                    if (randomIndex <= rank)
+                    {
+                        secondIndivid = bestPopulation[position];
+                        break;
+                    }
+                }
 
                 while (firstIndivid == secondIndivid)
                 {
-                    randomIndex = Random.Next(bestPopulation.Count);
-                    secondIndivid = bestPopulation[randomIndex];
+                    randomIndex = Random.Next(1, sum);
+                    foreach (var (position, rank) in ranks)
+                    {
+                        if (randomIndex <= rank)
+                        {
+                            secondIndivid = bestPopulation[position];
+                            break;
+                        }
+                    }
                 }
 
                 var currentChilds = Crossover(firstIndivid, secondIndivid);
@@ -93,7 +118,7 @@ public class Genetic
 
             foreach (var individ in population)
             {
-                individ.Mutate(_mutationChance, i);
+                individ.Mutate(_mutationChance);
                 var score = individ.CalculateFunction(individ.Components);
                 individ.Score = score;
             }
@@ -104,7 +129,7 @@ public class Genetic
             {
                 Minimum = population[0].Score;
 
-                CoordinatesOfMinimum = population[0].Components;
+                _coordinatesOfMinimum = population[0].Components;
             }
         }
 
@@ -112,7 +137,7 @@ public class Genetic
     }
 
     // Функция скрещивания
-    private List<Individ> Crossover(Individ firstParent, Individ secondParent)
+    private IEnumerable<Individ> Crossover(Individ firstParent, Individ secondParent)
     {
         var firstChild = new Individ(_start, _end, _mutationSteps, _countOfComponents, _calculateFunction);
         var secondChild = new Individ(_start, _end, _mutationSteps, _countOfComponents, _calculateFunction);

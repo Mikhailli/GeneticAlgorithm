@@ -57,6 +57,17 @@ public partial class Form1 : Form
             RightBorderTextBox.Text = @"600";
         }
     }
+    
+    private void CheckBox5_CheckedChanged(object sender, EventArgs e)
+    {
+        CheckBoxEventHandling(CheckBox5);
+        if (CheckBox5.Checked)
+        {
+            CountOfElementsTextBox.Text = @"10";
+            LeftBorderTextBox.Text = @"-500";
+            RightBorderTextBox.Text = @"500";
+        }
+    }
 
     private void NumberOfIndividsTextBox_TextChanged(object sender, EventArgs e)
     {
@@ -206,9 +217,13 @@ public partial class Form1 : Form
         {
             return ThirdCalculateFunction;
         }
-        else
+        if (checkBox.Name == "CheckBox4")
         {
             return ForthCalculateFunction;
+        }
+        else
+        {
+            return FifthCalculateFunction;
         }
     }
 
@@ -239,6 +254,17 @@ public partial class Form1 : Form
         }
 
         return sum - multiplication;
+    }
+    
+    double FifthCalculateFunction(List<double> functionComponents)
+    {
+        var sum = 0d;
+        foreach (var component in functionComponents)
+        {
+            sum -= component * Math.Sin(Math.Sqrt(Math.Abs(component)));
+        }
+
+        return sum;
     }
 
     private void CheckBoxEventHandling(CheckBox checkBox)

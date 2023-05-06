@@ -46,6 +46,8 @@ namespace GeneticAlgorithm
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.CheckBox1 = new System.Windows.Forms.CheckBox();
             this.FunctionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.CheckBox5 = new System.Windows.Forms.CheckBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.CheckBox4 = new System.Windows.Forms.CheckBox();
             this.CheckBox3 = new System.Windows.Forms.CheckBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -67,6 +69,7 @@ namespace GeneticAlgorithm
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.FunctionsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -194,6 +197,8 @@ namespace GeneticAlgorithm
             // 
             // FunctionsGroupBox
             // 
+            this.FunctionsGroupBox.Controls.Add(this.CheckBox5);
+            this.FunctionsGroupBox.Controls.Add(this.pictureBox5);
             this.FunctionsGroupBox.Controls.Add(this.CheckBox4);
             this.FunctionsGroupBox.Controls.Add(this.CheckBox3);
             this.FunctionsGroupBox.Controls.Add(this.pictureBox4);
@@ -208,6 +213,24 @@ namespace GeneticAlgorithm
             this.FunctionsGroupBox.TabIndex = 18;
             this.FunctionsGroupBox.TabStop = false;
             this.FunctionsGroupBox.Text = "Функции";
+            // 
+            // CheckBox5
+            // 
+            this.CheckBox5.Location = new System.Drawing.Point(6, 339);
+            this.CheckBox5.Name = "CheckBox5";
+            this.CheckBox5.Size = new System.Drawing.Size(26, 24);
+            this.CheckBox5.TabIndex = 24;
+            this.CheckBox5.UseVisualStyleBackColor = true;
+            this.CheckBox5.CheckedChanged += new System.EventHandler(this.CheckBox5_CheckedChanged);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(47, 319);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(297, 59);
+            this.pictureBox5.TabIndex = 23;
+            this.pictureBox5.TabStop = false;
             // 
             // CheckBox4
             // 
@@ -415,6 +438,7 @@ namespace GeneticAlgorithm
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.FunctionsGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -429,6 +453,10 @@ namespace GeneticAlgorithm
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.CheckBox CheckBox5;
+
+        private System.Windows.Forms.PictureBox pictureBox5;
 
         private System.Windows.Forms.CheckBox CheckBox3;
         private System.Windows.Forms.CheckBox CheckBox4;

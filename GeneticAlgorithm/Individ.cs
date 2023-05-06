@@ -43,19 +43,19 @@ public class Individ
 
     // Функция мутации индивида
     
-    public void Mutate(double mutateChance, int numberOfLife)
+    public void Mutate(double mutateChance)
     {
         if (Random.NextDouble() <= mutateChance)
         {
             for (var i = 0; i < _countOfComponents; i++)
             {
-                var component = MutateComponent(Components[i], numberOfLife);
+                var component = MutateComponent(Components[i]);
                 Components[i] = component;
             }
         }
     }
     
-    private double MutateComponent(double component, int numberOfLife)
+    private double MutateComponent(double component)
     {
         var deltaX = 0d;
 
@@ -99,28 +99,4 @@ public class Individ
     {
         return Random.NextDouble() * (end - start) + start;
     }
-
-    /*public double CalculateFunction()
-    {
-        /*Score = -(X1 * Math.Sin(Math.Sqrt(Math.Abs(X1))) +
-                  X2 * Math.Sin(Math.Sqrt(Math.Abs(X2))) +
-                  X3 * Math.Sin(Math.Sqrt(Math.Abs(X3))) +
-                  X4 * Math.Sin(Math.Sqrt(Math.Abs(X4))) +
-                  X5 * Math.Sin(Math.Sqrt(Math.Abs(X5))) +
-                  X6 * Math.Sin(Math.Sqrt(Math.Abs(X6))) +
-                  X7 * Math.Sin(Math.Sqrt(Math.Abs(X7))) +
-                  X8 * Math.Sin(Math.Sqrt(Math.Abs(X8))) +
-                  X9 * Math.Sin(Math.Sqrt(Math.Abs(X9))) +
-                  X10 * Math.Sin(Math.Sqrt(Math.Abs(X10))));#1#
-        var sum = 1d;
-        var r = 1d;
-        for (var i = 0; i < _countOfComponents; i++)
-        {
-            sum += Math.Pow(Components[i], 2) / 4000;
-            r *= Math.Cos(Components[i] / Math.Sqrt(i + 1));
-        }
-
-        Score = sum - r;
-        return Score;
-    }*/
 }
