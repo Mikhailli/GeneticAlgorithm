@@ -27,7 +27,7 @@ namespace ConsoleGeneticAlgorithm
                 return score;
             }
             
-            var genetic = new Genetic(2500, 0.5, 30, 0.5,
+            var genetic = new Genetic(2000, 0.5, 30, 0.5,
                 5000, -500, 500, 10, CalculateFunction);
             genetic.StartGenetic();
             var message = $"Найденное значение: ";
